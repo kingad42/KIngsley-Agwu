@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ProtecX — Your Complete Cybersecurity Marketplace</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --green: #00C896;
+    --green-dark: #00A07A;
+    --green-light: #E6FBF5;
+    --navy: #0D1B2A;
+    --navy-mid: #1A2E42;
+    --text: #0D1B2A;
+    --muted: #5C6E82;
+    --border: #E2EAF0;
+    --white: #FFFFFF;
+    --surface: #F7FAFB;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; color: var(--text); background: var(--white); overflow-x: hidden; }
+  h1,h2,h3,h4,h5 { font-family: 'Syne', sans-serif; }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5%; height: 64px;
+    background: rgba(255,255,255,0.95); backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+  }
+  .logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 20px; color: var(--text); text-decoration: none; }
+  .logo span { color: var(--green); }
+  .nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
+  .nav-links a { font-size: 14px; font-weight: 400; color: var(--muted); text-decoration: none; transition: color .2s; }
+  .nav-links a:hover { color: var(--text); }
+  .nav-actions { display: flex; gap: .75rem; align-items: center; }
+  .btn-ghost { background: none; border: 1px solid var(--border); border-radius: 8px; padding: 8px 18px; font-family: 'DM Sans', sans-serif; font-size: 14px; cursor: pointer; color: var(--text); transition: all .2s; }
+  .btn-ghost:hover { border-color: var(--green); color: var(--green); }
+  .btn-primary { background: var(--green); border: none; border-radius: 8px; padding: 9px 20px; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; color: var(--white); cursor: pointer; transition: background .2s, transform .15s; }
+  .btn-primary:hover { background: var(--green-dark); transform: translateY(-1px); }
+  .btn-primary:active { transform: translateY(0); }
+
+  /* HERO */
+  .hero {
+    display: grid; grid-template-columns: 1fr 1fr;
+    align-items: center; gap: 3rem;
+    padding: 5rem 5% 4rem;
+    max-width: 1200px; margin: 0 auto;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--green-light); border: 1px solid rgba(0,200,150,.25);
+    border-radius: 20px; padding: 4px 12px; margin-bottom: 1.5rem;
+    font-size: 12px; font-weight: 500; color: var(--green-dark); letter-spacing: .04em;
+  }
+  .hero-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.6;transform:scale(1.3)} }
+  h1 { font-size: clamp(2.2rem, 4vw, 3.6rem); line-height: 1.1; font-weight: 800; margin-bottom: 1.25rem; }
+  h1 .accent { color: var(--green); }
+  .hero p { font-size: 16px; color: var(--muted); line-height: 1.75; max-width: 440px; margin-bottom: 2rem; }
+  .hero-actions { display: flex; gap: .75rem; flex-wrap: wrap; }
+  .btn-lg { padding: 14px 28px; font-size: 15px; border-radius: 10px; }
+  .btn-outline { background: none; border: 1.5px solid var(--border); border-radius: 10px; padding: 13px 28px; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 400; color: var(--text); cursor: pointer; transition: all .2s; }
+  .btn-outline:hover { border-color: var(--green); color: var(--green); }
+  .hero-img {
+    border-radius: 16px; overflow: hidden; aspect-ratio: 4/3;
+    background: linear-gradient(135deg, #1A2E42 0%, #0D4D3A 100%);
+    position: relative; display: flex; align-items: center; justify-content: center;
+  }
+  .hero-img-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 2px; width: 100%; height: 100%;
+  }
+  .img-block { background: var(--navy-mid); position: relative; overflow: hidden; }
+  .img-block::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(0,200,150,.15), transparent); }
+  .terminal {
+    position: absolute; bottom: 1rem; left: 1rem; right: 1rem;
+    background: rgba(0,0,0,.7); backdrop-filter: blur(6px);
+    border-radius: 8px; padding: 10px 14px; border: 1px solid rgba(0,200,150,.3);
+  }
+  .terminal-line { font-family: 'Courier New', monospace; font-size: 11px; color: var(--green); line-height: 1.8; }
+  .terminal-line.dim { color: rgba(0,200,150,.5); }
+  .cursor { display: inline-block; width: 7px; height: 12px; background: var(--green); animation: blink 1s step-end infinite; vertical-align: middle; }
+  @keyframes blink { 50%{opacity:0} }
+
+  /* PROBLEM */
+  .problem { padding: 6rem 5%; background: var(--surface); }
+  .section-label { text-align: center; }
+  .section-label h2 { font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 700; margin-bottom: .75rem; }
+  .section-label p { color: var(--muted); font-size: 16px; max-width: 520px; margin: 0 auto; }
+  .problem-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; max-width: 1000px; margin: 3rem auto 0; }
+  .problem-card { background: var(--white); border: 1px solid var(--border); border-radius: 14px; padding: 1.75rem; }
+  .icon-wrap { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; font-size: 20px; }
+  .icon-wrap.red { background: #FFF0EE; }
+  .icon-wrap.orange { background: #FFF5EC; }
+  .icon-wrap.yellow { background: #FFFBEA; }
+  .problem-card h4 { font-size: 15px; font-weight: 700; margin-bottom: .5rem; }
+  .problem-card p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+  /* SOLUTIONS */
+  .solutions { padding: 6rem 5%; max-width: 1200px; margin: 0 auto; }
+  .solutions-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3rem; }
+  .solutions-header h2 { font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 700; max-width: 420px; line-height: 1.2; }
+  .solutions-header a { color: var(--green); font-size: 14px; font-weight: 500; text-decoration: none; white-space: nowrap; }
+  .sol-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .sol-card { border: 1px solid var(--border); border-radius: 16px; padding: 2rem; transition: box-shadow .2s, border-color .2s; }
+  .sol-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,.08); border-color: var(--green); }
+  .sol-icon { width: 48px; height: 48px; border-radius: 12px; background: var(--green-light); display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 1.25rem; }
+  .sol-card h3 { font-size: 17px; font-weight: 700; margin-bottom: .5rem; }
+  .sol-card > p { font-size: 14px; color: var(--muted); line-height: 1.6; margin-bottom: 1.25rem; }
+  .sol-tags { display: flex; flex-direction: column; gap: 4px; }
+  .sol-tag { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); }
+  .sol-tag::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--green); flex-shrink: 0; }
+
+  /* CAREERS */
+  .careers { padding: 6rem 5%; background: var(--surface); }
+  .careers-inner { max-width: 900px; margin: 0 auto; }
+  .careers-inner h2 { font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 700; text-align: center; margin-bottom: .75rem; }
+  .careers-inner > p { text-align: center; color: var(--muted); font-size: 16px; margin-bottom: 3rem; }
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .step { text-align: center; padding: 2rem 1.5rem; background: var(--white); border-radius: 16px; border: 1px solid var(--border); }
+  .step-num { width: 44px; height: 44px; border-radius: 12px; background: var(--green); color: white; font-family: 'Syne', sans-serif; font-weight: 800; font-size: 18px; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.25rem; }
+  .step h4 { font-size: 16px; font-weight: 700; margin-bottom: .5rem; }
+  .step p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+  /* HOW IT WORKS */
+  .how { padding: 6rem 5%; max-width: 1100px; margin: 0 auto; }
+  .how h2 { font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 700; margin-bottom: 3rem; }
+  .how-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+  .how-steps { display: flex; flex-direction: column; gap: 0; }
+  .how-step { display: flex; gap: 1.25rem; padding: 1.5rem 0; border-bottom: 1px solid var(--border); }
+  .how-step:last-child { border-bottom: none; }
+  .step-circle { width: 36px; height: 36px; border-radius: 50%; background: var(--green-light); border: 1px solid rgba(0,200,150,.3); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: var(--green-dark); flex-shrink: 0; margin-top: 2px; }
+  .how-step h4 { font-size: 15px; font-weight: 600; margin-bottom: .35rem; }
+  .how-step p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+  .trust-box { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 2rem; height: fit-content; }
+  .trust-box h4 { font-size: 16px; font-weight: 700; margin-bottom: 1.5rem; }
+  .trust-badges { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .trust-badge { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 1.25rem; background: var(--white); border: 1px solid var(--border); border-radius: 12px; text-align: center; }
+  .trust-badge span.ico { font-size: 24px; }
+  .trust-badge strong { font-size: 12px; font-weight: 600; color: var(--text); }
+  .trust-badge span.desc { font-size: 11px; color: var(--muted); }
+
+  /* SEGMENTS */
+  .segments { padding: 5rem 5%; background: var(--surface); }
+  .segments h2 { font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 700; text-align: center; margin-bottom: 2.5rem; }
+  .seg-row { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; max-width: 900px; margin: 0 auto; }
+  .seg-chip { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 1.5rem 1.75rem; background: var(--white); border: 1px solid var(--border); border-radius: 14px; cursor: pointer; transition: all .2s; min-width: 100px; }
+  .seg-chip:hover { border-color: var(--green); box-shadow: 0 4px 16px rgba(0,200,150,.12); transform: translateY(-2px); }
+  .seg-chip span.ico { font-size: 26px; }
+  .seg-chip span.label { font-size: 13px; font-weight: 500; color: var(--text); }
+
+  /* CTA */
+  .cta {
+    margin: 0 5% 5rem; border-radius: 24px; overflow: hidden;
+    background: var(--navy); position: relative; padding: 5rem 3rem; text-align: center;
+  }
+  .cta::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse 60% 80% at 50% 0%, rgba(0,200,150,.2), transparent);
+  }
+  .cta-content { position: relative; z-index: 1; }
+  .cta h2 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; color: var(--white); margin-bottom: 1rem; line-height: 1.15; }
+  .cta p { color: rgba(255,255,255,.65); font-size: 15px; max-width: 500px; margin: 0 auto 2rem; }
+  .cta-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+  .btn-cta-white { background: var(--green); border: none; border-radius: 10px; padding: 14px 32px; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 500; color: var(--white); cursor: pointer; transition: all .2s; }
+  .btn-cta-white:hover { background: var(--green-dark); transform: translateY(-1px); }
+  .btn-cta-outline { background: none; border: 1.5px solid rgba(255,255,255,.3); border-radius: 10px; padding: 13px 32px; font-family: 'DM Sans', sans-serif; font-size: 15px; color: rgba(255,255,255,.85); cursor: pointer; transition: all .2s; }
+  .btn-cta-outline:hover { border-color: rgba(255,255,255,.7); color: var(--white); }
+
+  /* FOOTER */
+  footer { background: var(--navy); padding: 3rem 5% 2rem; border-top: 1px solid rgba(255,255,255,.08); }
+  .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 2rem; margin-bottom: 3rem; }
+  .footer-brand .logo { color: var(--white); font-size: 18px; }
+  .footer-brand p { font-size: 13px; color: rgba(255,255,255,.45); line-height: 1.7; margin-top: .75rem; max-width: 220px; }
+  .footer-col h5 { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700; color: rgba(255,255,255,.9); margin-bottom: .75rem; letter-spacing: .04em; text-transform: uppercase; }
+  .footer-col a { display: block; font-size: 13px; color: rgba(255,255,255,.45); text-decoration: none; margin-bottom: .5rem; transition: color .2s; }
+  .footer-col a:hover { color: var(--green); }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,.08); padding-top: 1.5rem; font-size: 12px; color: rgba(255,255,255,.3); flex-wrap: wrap; gap: .5rem; }
+  .footer-bottom a { color: rgba(255,255,255,.3); text-decoration: none; margin-left: 1.5rem; }
+  .footer-bottom a:hover { color: rgba(255,255,255,.6); }
+
+  /* ANIMATIONS */
+  .fade-up { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 768px) {
+    nav { padding: 0 4%; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; padding: 3rem 4% 2rem; }
+    .hero-img { display: none; }
+    .problem-cards, .sol-grid, .steps, .how-grid { grid-template-columns: 1fr; }
+    .solutions-header { flex-direction: column; align-items: flex-start; gap: .75rem; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .cta { margin: 0 4% 4rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="logo" href="#"><span>Protec</span>X</a>
+  <ul class="nav-links">
+    <li><a href="#">Hire Experts</a></li>
+    <li><a href="#">Security Tools</a></li>
+    <li><a href="#">Hardware</a></li>
+    <li><a href="#">Jobs</a></li>
+    <li><a href="#">How It Works</a></li>
+  </ul>
+  <div class="nav-actions">
+    <button class="btn-ghost">Login</button>
+    <button class="btn-primary">Sign Up</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section style="max-width:1200px;margin:0 auto;">
+  <div class="hero">
+    <div class="hero-content">
+      <div class="hero-badge">🌐 Now Live: Global Security Network</div>
+      <h1>Your Complete<br><span class="accent">Cybersecurity</span><br>Marketplace</h1>
+      <p>Hire world-class experts, discover advanced security tools, and protect your digital assets — all in one trusted platform designed for the modern web.</p>
+      <div class="hero-actions">
+        <button class="btn-primary btn-lg">Find Security Experts →</button>
+        <button class="btn-outline">Explore Tools</button>
+      </div>
+    </div>
+    <div class="hero-img">
+      <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;">
+        <div style="width:90%;height:85%;">
+          <div style="display:flex;gap:8px;margin-bottom:10px;">
+            <div style="width:10px;height:10px;border-radius:50%;background:#FF5F57;"></div>
+            <div style="width:10px;height:10px;border-radius:50%;background:#FEBC2E;"></div>
+            <div style="width:10px;height:10px;border-radius:50%;background:#28C840;"></div>
+          </div>
+          <div style="background:rgba(0,0,0,.4);border:1px solid rgba(0,200,150,.3);border-radius:10px;padding:18px;">
+            <div class="terminal">
+              <div class="terminal-line dim">// ProtecX Threat Scanner v3.1</div>
+              <div class="terminal-line">$ scan --target enterprise --depth full</div>
+              <div class="terminal-line dim">Scanning 1,204 endpoints...</div>
+              <div class="terminal-line" style="color:#00C896;">✓ 0 critical vulnerabilities</div>
+              <div class="terminal-line" style="color:#FEBC2E;">⚠ 3 medium — patches available</div>
+              <div class="terminal-line">› Expert assigned: <span style="color:#00C896;">@sec_hawk</span></div>
+              <div class="terminal-line">Status: Protected <span class="cursor"></span></div>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px;">
+            <div style="background:rgba(0,200,150,.1);border:1px solid rgba(0,200,150,.25);border-radius:8px;padding:12px;">
+              <div style="font-size:11px;color:rgba(255,255,255,.5);font-family:'DM Sans',sans-serif;margin-bottom:4px;">Active Experts</div>
+              <div style="font-size:22px;font-family:'Syne',sans-serif;font-weight:800;color:#00C896;">10,240+</div>
+            </div>
+            <div style="background:rgba(0,200,150,.1);border:1px solid rgba(0,200,150,.25);border-radius:8px;padding:12px;">
+              <div style="font-size:11px;color:rgba(255,255,255,.5);font-family:'DM Sans',sans-serif;margin-bottom:4px;">Threats Blocked</div>
+              <div style="font-size:22px;font-family:'Syne',sans-serif;font-weight:800;color:#00C896;">2.4M</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem">
+  <div class="section-label fade-up">
+    <h2>Cybersecurity Is Too Fragmented</h2>
+    <p>Current solutions are disconnected, making it difficult and expensive to secure your business effectively.</p>
+  </div>
+  <div class="problem-cards">
+    <div class="problem-card fade-up">
+      <div class="icon-wrap red">👤</div>
+      <h4>Hard to find experts</h4>
+      <p>Verifying and connecting with specialized security professionals is tedious and time-consuming.</p>
+    </div>
+    <div class="problem-card fade-up" style="transition-delay:.1s">
+      <div class="icon-wrap orange">🔧</div>
+      <h4>Tools are scattered</h4>
+      <p>Critical software and hardware tools are spread across hundreds of different vendors and platforms.</p>
+    </div>
+    <div class="problem-card fade-up" style="transition-delay:.2s">
+      <div class="icon-wrap yellow">💰</div>
+      <h4>High security costs</h4>
+      <p>Fragmented services lead to massive overhead and inefficient spending on digital protection.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTIONS -->
+<section style="padding:6rem 5%;">
+  <div class="solutions fade-up" style="max-width:1200px;margin:0 auto;padding:0;">
+    <div class="solutions-header">
+      <h2>Everything You Need —<br>In One Place</h2>
+      <a href="#">View Marketplace →</a>
+    </div>
+    <p style="color:var(--muted);font-size:15px;margin-bottom:2.5rem;max-width:500px;">The world's first unified marketplace for cybersecurity services, software, and hardware.</p>
+    <div class="sol-grid">
+      <div class="sol-card fade-up">
+        <div class="sol-icon">🛡️</div>
+        <h3>Security Experts</h3>
+        <p>Hire vetted freelancers for penetration testing, compliance audits, and incident response.</p>
+        <div class="sol-tags">
+          <span class="sol-tag">Bug Bounty Hunters</span>
+          <span class="sol-tag">Compliance Officers</span>
+          <span class="sol-tag">CISO on Demand</span>
+        </div>
+      </div>
+      <div class="sol-card fade-up" style="transition-delay:.1s">
+        <div class="sol-icon">💻</div>
+        <h3>Security Software</h3>
+        <p>Access premium antivirus, firewalls, and monitoring tools with flexible subscription models.</p>
+        <div class="sol-tags">
+          <span class="sol-tag">EDR Solutions</span>
+          <span class="sol-tag">Password Vaults</span>
+          <span class="sol-tag">VPN & Proxy Tools</span>
+        </div>
+      </div>
+      <div class="sol-card fade-up" style="transition-delay:.2s">
+        <div class="sol-icon">🔑</div>
+        <h3>Security Hardware</h3>
+        <p>Purchase physical security keys, hardware wallets, and network encryption devices.</p>
+        <div class="sol-tags">
+          <span class="sol-tag">Yubikeys & 2FA</span>
+          <span class="sol-tag">Cold Storage</span>
+          <span class="sol-tag">Encrypted Drives</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CAREERS -->
+<section class="careers">
+  <div class="careers-inner">
+    <h2 class="fade-up">A Marketplace That Creates Careers</h2>
+    <p class="fade-up">ProtecX isn't just a store — it's an ecosystem where talent and demand meet to build a safer digital future.</p>
+    <div class="steps">
+      <div class="step fade-up">
+        <div class="step-num">1</div>
+        <h4>Post Projects</h4>
+        <p>Businesses list security needs from simple audits to complex infrastructure protection.</p>
+      </div>
+      <div class="step fade-up" style="transition-delay:.1s">
+        <div class="step-num">2</div>
+        <h4>Experts Lead</h4>
+        <p>Certified professionals bid on projects and design comprehensive security strategies.</p>
+      </div>
+      <div class="step fade-up" style="transition-delay:.2s">
+        <div class="step-num">3</div>
+        <h4>Collaborate</h4>
+        <p>Junior analysts join teams to learn, earn, and solve real-world security challenges.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how">
+  <h2 class="fade-up">How ProtecX Works</h2>
+  <div class="how-grid">
+    <div class="how-steps">
+      <div class="how-step fade-up">
+        <div class="step-circle">1</div>
+        <div>
+          <h4>Sign Up & Verify</h4>
+          <p>Your profile is created. Experts undergo rigorous background and skill verification.</p>
+        </div>
+      </div>
+      <div class="how-step fade-up" style="transition-delay:.08s">
+        <div class="step-circle">2</div>
+        <div>
+          <h4>Choose Service or Tool</h4>
+          <p>Browse categories or post a custom project to get custom quotes from top talent.</p>
+        </div>
+      </div>
+      <div class="how-step fade-up" style="transition-delay:.16s">
+        <div class="step-circle">3</div>
+        <div>
+          <h4>Secure Payment</h4>
+          <p>Funds are held in secure escrow until you approve the final delivery.</p>
+        </div>
+      </div>
+      <div class="how-step fade-up" style="transition-delay:.24s">
+        <div class="step-circle">4</div>
+        <div>
+          <h4>Delivery & Review</h4>
+          <p>Receive reports or tools, verify results, and leave a review for the expert.</p>
+        </div>
+      </div>
+    </div>
+    <div class="fade-up" style="transition-delay:.3s">
+      <div class="trust-box">
+        <h4>Trust & Safety Badges</h4>
+        <div class="trust-badges">
+          <div class="trust-badge">
+            <span class="ico">✅</span>
+            <strong>Verified Identity</strong>
+            <span class="desc">All experts ID-verified</span>
+          </div>
+          <div class="trust-badge">
+            <span class="ico">🔒</span>
+            <strong>Escrow Support</strong>
+            <span class="desc">Funds held securely</span>
+          </div>
+          <div class="trust-badge">
+            <span class="ico">⚖️</span>
+            <strong>24/7 Dispute Resolution</strong>
+            <span class="desc">Expert mediation team</span>
+          </div>
+          <div class="trust-badge">
+            <span class="ico">🏦</span>
+            <strong>Bank-Grade Privacy</strong>
+            <span class="desc">256-bit encryption</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SEGMENTS -->
+<section class="segments fade-up">
+  <h2>Tailored Solutions for Everyone</h2>
+  <div class="seg-row">
+    <div class="seg-chip"><span class="ico">🚀</span><span class="label">Startups</span></div>
+    <div class="seg-chip"><span class="ico">🏢</span><span class="label">SMBs</span></div>
+    <div class="seg-chip"><span class="ico">🏛️</span><span class="label">Enterprises</span></div>
+    <div class="seg-chip"><span class="ico">💻</span><span class="label">Developers</span></div>
+    <div class="seg-chip"><span class="ico">🏛</span><span class="label">Government</span></div>
+    <div class="seg-chip"><span class="ico">👔</span><span class="label">Professionals</span></div>
+    <div class="seg-chip"><span class="ico">📘</span><span class="label">Beginners</span></div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta fade-up">
+  <div class="cta-content">
+    <h2>Start Protecting Your<br>Digital Assets Today</h2>
+    <p>Join 10,000+ businesses and security experts already collaborating on the ProtecX platform.</p>
+    <div class="cta-btns">
+      <button class="btn-cta-white">Get Started Now</button>
+      <button class="btn-cta-outline">Talk to an Expert</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a class="logo" href="#"><span style="color:var(--green)">Protec</span><span style="color:white">X</span></a>
+      <p>The world's leading cybersecurity marketplace. Secure your business with the best talent and screening-while tools.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Marketplace</h5>
+      <a href="#">Hire Experts</a>
+      <a href="#">Security Software</a>
+      <a href="#">Hardware Shop</a>
+      <a href="#">Bounties</a>
+    </div>
+    <div class="footer-col">
+      <h5>Opportunities</h5>
+      <a href="#">Become a Seller</a>
+      <a href="#">Affiliate Program</a>
+      <a href="#">Career Path</a>
+      <a href="#">Job Board</a>
+    </div>
+    <div class="footer-col">
+      <h5>Support</h5>
+      <a href="#">Help Center</a>
+      <a href="#">Trust & Safety</a>
+      <a href="#">Contact Us</a>
+      <a href="#">API Docs</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 ProtecX Technologies Inc. All rights reserved.</span>
+    <div>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+      <a href="#">Cookie Settings</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
