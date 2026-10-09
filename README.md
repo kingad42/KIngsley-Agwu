@@ -2,7 +2,7 @@
 
 Personal portfolio site for **Agwu Kingsley Daberachukwu (Kingad)**, a UI/UX and Product Designer based in Lagos, Nigeria, working across web3, cybersecurity, healthcare, fintech, real estate, and agritech.
 
-**Live site:** [kingad42.github.io/KingsleyAd](https://kingad42.github.io/KingsleyAd/)
+**Live site:** [kingad42.github.io/KingsleyAd](https://kingad42.github.io/KIngsley-Agwu)
 
 ## About
 
@@ -68,4 +68,4 @@ The site is deployed via **GitHub Pages** from the repository root. Any push to 
 
 ## Contact
 
-Built and maintained by Kingsley. For inquiries, reach out via the contact section on the [live site](https://kingad42.github.io/KingsleyAd/).
+Built and maintained by Kingsley. For inquiries, reach out via the contact section on the [live site](https://kingad42.github.io/KIngsley-Agwu)).
